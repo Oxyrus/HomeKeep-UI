@@ -1,1 +1,6 @@
-<p>list-inventories works!</p>
+<p>Listado de inventarios</p>
+<mat-list>
+  <a mat-list-item *ngFor="let inventory of inventories$ | async" [routerLink]="['/inventories', inventory.id]">
+    {{ inventory.name }}
+  </a>
+</mat-list>

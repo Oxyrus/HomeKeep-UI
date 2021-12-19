@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import * as fromInventory from 'src/app/core/store/inventory';
 
 @Component({
   selector: 'app-list-inventories',
@@ -6,10 +9,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./list-inventories.component.scss']
 })
 export class ListInventoriesComponent implements OnInit {
+  public inventories$!: Observable<fromInventory.Inventory[]>;
 
-  constructor() { }
+  constructor(private store: Store) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+    this.store.dispatch(fromInventory.getInventories());
+    this.inventories$ = this.store.pipe(select(fromInventory.selectInventories));
   }
 
 }
